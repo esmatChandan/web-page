@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Chandan's Application1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    
+    <link rel="stylesheet" type="text/css" href="./css/index.css" />
+    <link rel="stylesheet" type="text/css" href="./css/font.css" />
+    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="./css/components.css" />
+    <link rel="stylesheet" type="text/css" href="./css/Homepage.css" />
+    <script>
+      /**
+       * Handles the tab change functionality in a tablist
+       */
+      function handleTabs(/** @type {HTMLElement} */ target) {
+        const tabs = /** @type {HTMLElement[]} */ (target.querySelectorAll('[role="tab"]'));
+        const tabPanels = /** @type {HTMLElement[]} */ (target.querySelectorAll('[role="tabpanel"]'));
+        const activeClassList = ["active"];
+
+        function changeTab(/** @type {HTMLElement}*/ target) {
+          target.focus();
+          const controls = /** @type {string} */ (target.getAttribute("aria-controls"));
+
+          for (const tab of tabs) {
+            const isActiveTab = tab.id === target.id;
+            const tabIndex = isActiveTab ? "0" : "-1";
+            const ariaSelected = isActiveTab ? "true" : "false";
+
+            tab.setAttribute("tabindex", tabIndex);
+            tab.setAttribute("aria-selected", ariaSelected);
+            isActiveTab ? tab.classList.add(...activeClassList) : tab.classList.remove(...activeClassList);
+          }
+
+          for (const panel of tabPanels) {
+            const shouldHidePanel = panel.id !== controls;
+            panel.hidden = shouldHidePanel;
+            panel.style.display = shouldHidePanel ? "none" : "";
+          }
+        }
+
+        function handleClickEvent(/** @type {MouseEvent} */ event) {
+          changeTab(event.target);
+        }
+
+        function handleKeyboardEvent(/** @type {KeyboardEvent} */ event) {
+          const key = event.key;
+          const target = event.target;
+          const index = [...tabs].findIndex((tab) => tab.id === target.id);
+
+          switch (key) {
+            case "ArrowLeft": {
+              const prevTab = tabs[index - 1];
+              if (prevTab) changeTab(prevTab);
+              break;
+            }
+
+            case "ArrowRight": {
+              const nextTab = tabs[index + 1];
+              if (nextTab) changeTab(nextTab);
+              break;
+            }
+
+            case "Home": {
+              const firstTab = tabs[0];
+              if (firstTab) changeTab(firstTab);
+              break;
+            }
+
+            case "End": {
+              const lastTab = tabs[tabs.length - 1];
+              if (lastTab) changeTab(lastTab);
+              break;
+            }
+          }
+        }
+
+        for (const tab of tabs) {
+          tab.style.cursor = "pointer";
+          tab.addEventListener("click", handleClickEvent);
+          tab.addEventListener("keydown", handleKeyboardEvent);
+        }
+      }
+      /**
+       * Hydrate tablist(s)
+       */
+      document.addEventListener("DOMContentLoaded", () => {
+        const tabLists = /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll('[role="tablist"]'));
+        for (const tabList of tabLists) handleTabs(tabList);
+      });
+    </script>
+  </head>
+  <body>
+    <div class="homepage">
+      <div class="heroheader">
+        <header class="footer">
+         
+          <div class="header-1">
+            <div class="details-4 container-xs">
+              <img src="public/images/img_header_logo.svg" alt="headerlogo" class="headerlogo_one" />
+              <ul class="menu">
+                <li>
+                  <a href="#">
+                    <p class="ui heading size-s">Home</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <p class="shop ui heading size-s">Shop</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <p class="shop ui heading size-s">Women</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <p class="shop ui heading size-s">Men</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <p class="shop ui heading size-s">Accessories</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <p class="shop ui heading size-s">About Us</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <p class="shop ui heading size-s">Contact Us</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <p class="shop ui heading size-s">Blog</p>
+                  </a>
+                </li>
+              </ul>
+              <div class="rowsearch_one">
+                <a href="#">
+                  <img src="public/images/img_search.svg" alt="search" class="search_one" />
+                </a>
+                <a href="#">
+                  <img src="public/images/img_favorite.svg" alt="favorite" class="search_one" />
+                </a>
+                <a href="#">
+                  <img src="public/images/img_bag.svg" alt="bag" class="search_one" />
+                </a>
+                <a href="#">
+                  <img src="public/images/img_lock.svg" alt="lock" class="search_one" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div class="herosection">
+          <div class="details">
+            <button class="enjoy_50off_in ui button size-4xl fill">
+              <img src="public/images/img_icon_blue_gray_900_01.svg" alt="icon" class="icon" />
+              <span> Enjoy 50% OFF in Our Summer Super Sale!</span>
+            </button>
+            <h1 class="stepinto ui heading size-6xl">Step into Fashion at Your <br />Ultimate Style Destination!</h1>
+            <p class="description ui text size-lg">
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry&#39;s standard dummy
+            </p>
+            <button class="shop_now ui button size-3xl fill round">
+              <span> Shop Now</span>
+              <img src="public/images/img_frame.svg" alt="frame" class="frame" />
+            </button>
+          </div>
+          <img src="public/images/img_close_up_portra.png" alt="closeupportra" class="closeupportra" />
+        </div>
+      </div>
+      <div class="services">
+        <div class="partners container-xs">
+          <div class="freeshipping">
+            <img src="public/images/img_thumbs_up.svg" alt="free_shipping" class="free_shipping" />
+            <div class="columnfreeshipp">
+              <h2 class="ui heading size-xl">Free Shipping</h2>
+              <p class="price ui text size-md">Free Shipping for order above $180</p>
+            </div>
+          </div>
+          <div class="freeshipping">
+            <img src="public/images/img_thumbs_up.svg" alt="free_shipping" class="free_shipping" />
+            <div class="columnfreeshipp">
+              <h3 class="ui heading size-xl">Flexible Payment</h3>
+              <p class="price ui text size-md">Multiple secure payment options</p>
+            </div>
+          </div>
+          <div class="freeshipping">
+            <img src="public/images/img_thumbs_up.svg" alt="free_shipping" class="free_shipping" />
+            <div class="columnfreeshipp">
+              <h4 class="ui heading size-xl">24*7 Support</h4>
+              <p class="price ui text size-md">We Support Online all days</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="listwomen_one container-xs">
+        <div class="stackwomen_one">
+          <img src="public/images/img_rectangle_145.png" alt="women" class="women_one" />
+          <h2 class="women_two ui heading size-4xl">WOMEN</h2>
+        </div>
+        <div class="stackwomen_one">
+          <img src="public/images/img_rectangle_145_485x369.png" alt="image" class="women_one" />
+          <h2 class="women_two ui heading size-4xl">MEN</h2>
+        </div>
+        <div class="stackwomen_one">
+          <img src="public/images/img_rectangle_146_485x369.png" alt="image" class="women_one" />
+          <h2 class="women_two ui heading size-4xl">KIDS</h2>
+        </div>
+      </div>
+      <div class="ourtoseller">
+        <div class="ourproducts container-xs" id="tabList" role="tablist" aria-label="tab">
+          <div class="title-2">
+            <h2 class="newsblog-1 ui heading size-lg">Our Products</h2>
+            <h3 class="ui heading size-4xl">Our Bestselling Products</h3>
+            <div class="tab">
+              <span
+                class="all active"
+                id="tab01"
+                role="tab"
+                aria-controls="tabpanel01"
+                aria-selected="true"
+                tabindex="0"
+              >
+                All</span
+              >
+              <span
+                class="women_one-1"
+                id="tab11"
+                role="tab"
+                aria-controls="tabpanel11"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                Women</span
+              >
+              <span
+                class="women_one-1"
+                id="tab21"
+                role="tab"
+                aria-controls="tabpanel21"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                Men</span
+              >
+              <span
+                class="women_one-1"
+                id="tab31"
+                role="tab"
+                aria-controls="tabpanel31"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                Kids</span
+              >
+            </div>
+          </div>
+          <div id="tabpanel01" role="tabpanel" aria-labelledby="tab01" hidden class="tabcontent">
+            <div class="productlist">
+              <div class="productcard3">
+                <div class="image-10">
+                  <img src="public/images/img_rectangle_136_5.png" alt="trendy_tshirt" class="trendy_tshirt" />
+                  <button class="class-25off ui button size-2xl fill square">25% OFF</button>
+                </div>
+                <div class="columnfreeshipp">
+                  <h4 class="trendytshirt ui heading size-2xl">Trendy t-shirt</h4>
+                  <div class="rowhm">
+                    <h5 class="hm ui heading size-md">H&M</h5>
+                    <div class="row-4">
+                      <img src="public/images/img_frame_amber_500.svg" alt="image" class="image-16" />
+                      <h6 class="trendytshirt ui heading size-md">4.8</h6>
+                    </div>
+                  </div>
+                  <div class="rowprice-3">
+                    <h4 class="ui heading size-2xl">$75.00</h4>
+                    <p class="price-6 ui text size-2xl">$75.00</p>
+                  </div>
+                </div>
+              </div>
+              <div class="productcard3">
+                <div class="image-10">
+                  <img src="public/images/img_rectangle_136_6.png" alt="trendy_tshirt" class="trendy_tshirt" />
+                  <button class="class-25off ui button size-2xl fill square">25% OFF</button>
+                </div>
+                <div class="columnfreeshipp">
+                  <h4 class="trendytshirt ui heading size-2xl">Trendy t-shirt</h4>
+                  <div class="rowhm">
+                    <h6 class="hm ui heading size-md">H&M</h6>
+                    <div class="row-4">
+                      <img src="public/images/img_frame_amber_500.svg" alt="image" class="image-16" />
+                      <h6 class="trendytshirt ui heading size-md">4.8</h6>
+                    </div>
+                  </div>
+                  <div class="rowprice-3">
+                    <h4 class="ui heading size-2xl">$75.00</h4>
+                    <p class="price-6 ui text size-2xl">$75.00</p>
+                  </div>
+                </div>
+              </div>
+              <div class="productcard3">
+                <div class="image-10">
+                  <img src="public/images/img_rectangle_136_7.png" alt="trendy_tshirt" class="trendy_tshirt" />
+                  <button class="class-25off ui button size-2xl fill square">25% OFF</button>
+                </div>
+                <div class="columnfreeshipp">
+                  <h4 class="trendytshirt ui heading size-2xl">Trendy t-shirt</h4>
+                  <div class="rowhm">
+                    <h6 class="hm ui heading size-md">H&M</h6>
+                    <div class="row-4">
+                      <img src="public/images/img_frame_amber_500.svg" alt="image" class="image-16" />
+                      <h6 class="trendytshirt ui heading size-md">4.8</h6>
+                    </div>
+                  </div>
+                  <div class="rowprice-3">
+                    <h4 class="ui heading size-2xl">$75.00</h4>
+                    <p class="price-6 ui text size-2xl">$75.00</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="display: none" id="tabpanel11" role="tabpanel" aria-labelledby="tab11" hidden class="tabcontent">
+            <span style="min-height: 570px"> Women content</span>
+          </div>
+          <div style="display: none" id="tabpanel21" role="tabpanel" aria-labelledby="tab21" hidden class="tabcontent">
+            <span style="min-height: 570px"> Men content</span>
+          </div>
+          <div style="display: none" id="tabpanel31" role="tabpanel" aria-labelledby="tab31" hidden class="tabcontent">
+            <span style="min-height: 570px"> Kids content</span>
+          </div>
+        </div>
+      </div>
+      <div class="limitedtime">
+        <div class="limitedtime-1 container-xs">
+          <img src="public/images/img_young_women_pos.png" alt="youngwomenpos" class="youngwomenpos" />
+          <div class="details">
+            <h2 class="ui heading size-xl">Limited Time Offers</h2>
+            <h3 class="offer ui heading size-5xl">Get 50% Off All Fashion - Limited Time Offer!</h3>
+            <p class="description ui text size-lg">
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry&#39;s standard dummy
+            </p>
+            <button class="shop_now ui button size-3xl fill round">
+              <span> Shop Now</span>
+              <img src="public/images/img_frame.svg" alt="frame" class="frame" />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="listwomen_one container-xs">
+        <div class="image">
+          <div class="details-2">
+            <p class="offer-1 ui text size-lg">Flat 20% Discount</p>
+            <h2 class="explorethe ui heading size-4xl">Explore the Latest<br />in Men&#39;s Fashion</h2>
+            <p class="loremipsumis ui text size-lg">Lorem Ipsum is simply dummy text of the printing.</p>
+            <button class="shop_now ui button size-3xl fill round">
+              <span> Shop Now</span>
+              <img src="public/images/img_frame.svg" alt="frame" class="frame" />
+            </button>
+          </div>
+          <img src="public/images/img_portrait_man_we.png" alt="image" class="image-4" />
+        </div>
+        <div class="image">
+          <div class="details-2">
+            <p class="offer-1 ui text size-lg">Flat 25% Discount</p>
+            <h2 class="explorethe ui heading size-4xl">Discover the Latest <br />in Women&#39;s Fashion</h2>
+            <p class="loremipsumis ui text size-lg">Lorem Ipsum is simply dummy text of the printing.</p>
+            <button class="shop_now ui button size-3xl fill round">
+              <span> Shop Now</span>
+              <img src="public/images/img_frame.svg" alt="frame" class="frame" />
+            </button>
+          </div>
+          <img src="public/images/img_portrait_young.png" alt="image" class="image-4" />
+        </div>
+      </div>
+      <div class="dealsofthr container-xs">
+        <div class="title">
+          <h2 class="todaydeals ui heading size-lg">Today Deals</h2>
+          <h3 class="ui heading size-4xl">Deals of thr Day</h3>
+        </div>
+        <div class="productlist">
+          <div class="productcard4">
+            <img src="public/images/img_rectangle_142.png" alt="womens_denim" class="womens_denim" />
+            <div class="columnwomensden">
+              <p class="womensdenim ui text size-lg">Womens Denim Jacket</p>
+              <div class="rowprice">
+                <p class="price-3 ui text size-md">ZARA</p>
+                <div class="row-1">
+                  <p class="fortyfour ui text size-md">4.4</p>
+                  <img src="public/images/img_signal.png" alt="image" class="image-13" />
+                </div>
+              </div>
+              <div class="rowrscounter">
+                <h2 class="ui heading size-2xl">Rs. 700</h2>
+                <p class="rscounter ui text size-lg">Rs. 1000</p>
+                <h3 class="offer-5 ui heading size-lg">(30% off)</h3>
+              </div>
+            </div>
+          </div>
+          <div class="productcard4">
+            <img src="public/images/img_rectangle_145_350x369.png" alt="womens_denim" class="womens_denim" />
+            <div class="columnwomensden">
+              <p class="womensdenim ui text size-lg">Womens Denim Jacket</p>
+              <div class="rowprice">
+                <p class="price-3 ui text size-md">ZARA</p>
+                <div class="row-1">
+                  <p class="fortyfour ui text size-md">4.4</p>
+                  <img src="public/images/img_signal.png" alt="image" class="image-13" />
+                </div>
+              </div>
+              <div class="rowrscounter">
+                <h4 class="ui heading size-2xl">Rs. 700</h4>
+                <p class="rscounter ui text size-lg">Rs. 1000</p>
+                <h5 class="offer-5 ui heading size-lg">(30% off)</h5>
+              </div>
+            </div>
+          </div>
+          <div class="productcard4">
+            <img src="public/images/img_rectangle_145_1.png" alt="womens_denim" class="womens_denim" />
+            <div class="columnwomensden">
+              <p class="womensdenim ui text size-lg">Womens Denim Jacket</p>
+              <div class="rowprice">
+                <p class="price-3 ui text size-md">ZARA</p>
+                <div class="row-1">
+                  <p class="fortyfour ui text size-md">4.4</p>
+                  <img src="public/images/img_signal.png" alt="image" class="image-13" />
+                </div>
+              </div>
+              <div class="rowrscounter">
+                <h6 class="ui heading size-2xl">Rs. 700</h6>
+                <p class="rscounter ui text size-lg">Rs. 1000</p>
+                <h6 class="offer-5 ui heading size-lg">(30% off)</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="followus">
+        <div class="followus-1 container-xs">
+          <div class="title-3">
+            <h2 class="followus-2 ui heading size-lg">Follow Us</h2>
+            <h3 class="followus-2 ui heading size-4xl">Follow Us On Instagram</h3>
+          </div>
+          <div class="bloglist">
+            <div class="card">
+              <img src="public/images/img_rectangle_139.png" alt="image" class="image-6" />
+            </div>
+            <div class="card">
+              <img src="public/images/img_rectangle_141.png" alt="image" class="image-6" />
+            </div>
+            <div class="card">
+              <img src="public/images/img_rectangle_137.png" alt="image" class="image-6" />
+            </div>
+            <div class="card">
+              <img src="public/images/img_rectangle_138.png" alt="image" class="image-6" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="newsblog container-xs">
+        <div class="title-1">
+          <h2 class="newsblog-1 ui heading size-lg">News & Blog</h2>
+          <h3 class="ui heading size-4xl">Our Latest News & Blogs</h3>
+        </div>
+        <div class="bloglist">
+          <div class="userprofile">
+            <img src="public/images/img_rectangle_142_306x381.png" alt="july_232023" class="july_232023_one" />
+            <div class="columnjuly23202">
+              <div class="rowjuly232023">tab
+                <p class="todaydeals ui text size-md">July 23, 2023</p>
+                <div class="linefour_one"></div>
+                <p class="todaydeals ui text size-md">BRANDNAME</p>
+              </div>
+              <div class="columnfollowuso">
+                <h2 class="ui heading size-lg">Follow Us On Instagram</h2>
+                <p class="description-3 ui text size-lg">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                  industry&#39;s standard dummy
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="userprofile">
+            <img src="public/images/img_rectangle_142_1.png" alt="july_232023" class="july_232023_one" />
+            <div class="columnjuly23202">
+              <div class="rowjuly232023">
+                <p class="todaydeals ui text size-md">July 23, 2023</p>
+                <div class="linefour_one"></div>
+                <p class="todaydeals ui text size-md">BRANDNAME</p>
+              </div>
+              <div class="columnfollowuso">
+                <h3 class="ui heading size-lg">Follow Us On Instagram</h3>
+                <p class="description-3 ui text size-lg">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                  industry&#39;s standard dummy
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="userprofile">
+            <img src="public/images/img_rectangle_142_2.png" alt="july_232023" class="july_232023_one" />
+            <div class="columnjuly23202">
+              <div class="rowjuly232023">
+                <p class="todaydeals ui text size-md">July 23, 2023</p>
+                <div class="linefour_one"></div>
+                <p class="todaydeals ui text size-md">BRANDNAME</p>
+              </div>
+              <div class="columnfollowuso">
+                <h4 class="ui heading size-lg">Follow Us On Instagram</h4>
+                <p class="description-3 ui text size-lg">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                  industry&#39;s standard dummy
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="faq">
+        <div class="faq-1 container-xs">
+          <div class="title-4">
+            <h2 class="newsblog-1 ui heading size-lg">FAQ</h2>
+            <h3 class="ui heading size-4xl">Have Queries? Refer Here</h3>
+          </div>
+          <div class="faqs">
+            <details class="expanditem" open>
+              <summary class="rowloremipsumis">
+                <h4 class="loremipsumis-2 ui heading size-lg">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                </h4>
+              </summary>
+              <div class="columnloremipsu">
+                <p class="newsblog-1 ui text size-lg">Lorem Ipsum is simply dummy text.</p>
+                <p class="description-6 ui text size-lg">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                  industry&#39;s stand dummyLorem Ipsum is simply dummy text of the printing and typesetting industry.
+                  Lorem Ipsum has been the industry&#39;s standard dummy
+                </p>
+              </div>
+            </details>
+            <details class="expanditem">
+              <summary class="rowloremipsumis">
+                <h4 class="loremipsumis-2 ui heading size-lg">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                </h4>
+              </summary>
+              <div class="columnloremipsu">
+                <p class="newsblog-1 ui text size-lg">Lorem Ipsum is simply dummy text.</p>
+                <p class="description-6 ui text size-lg">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                  industry&#39;s stand dummyLorem Ipsum is simply dummy text of the printing and typesetting industry.
+                  Lorem Ipsum has been the industry&#39;s standard dummy
+                </p>
+              </div>
+            </details>
+            <details class="expanditem">
+              <summary class="rowloremipsumis">
+                <h4 class="loremipsumis-2 ui heading size-lg">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                </h4>
+              </summary>
+              <div class="columnloremipsu">
+                <p class="newsblog-1 ui text size-lg">Lorem Ipsum is simply dummy text.</p>
+                <p class="description-6 ui text size-lg">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                  industry&#39;s stand dummyLorem Ipsum is simply dummy text of the printing and typesetting industry.
+                  Lorem Ipsum has been the industry&#39;s standard dummy
+                </p>
+              </div>
+            </details>
+            <details class="expanditem">
+              <summary class="rowloremipsumis">
+                <h4 class="loremipsumis-2 ui heading size-lg">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                </h4>
+              </summary>
+              <div class="columnloremipsu">
+                <p class="newsblog-1 ui text size-lg">Lorem Ipsum is simply dummy text.</p>
+                <p class="description-6 ui text size-lg">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                  industry&#39;s stand dummyLorem Ipsum is simply dummy text of the printing and typesetting industry.
+                  Lorem Ipsum has been the industry&#39;s standard dummy
+                </p>
+              </div>
+            </details>
+            <details class="expanditem">
+              <summary class="rowloremipsumis">
+                <h4 class="loremipsumis-2 ui heading size-lg">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                </h4>
+              </summary>
+              <div class="columnloremipsu">
+                <p class="newsblog-1 ui text size-lg">Lorem Ipsum is simply dummy text.</p>
+                <p class="description-6 ui text size-lg">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                  industry&#39;s stand dummyLorem Ipsum is simply dummy text of the printing and typesetting industry.
+                  Lorem Ipsum has been the industry&#39;s standard dummy
+                </p>
+              </div>
+            </details>
+            <details class="expanditem">
+              <summary class="rowloremipsumis">
+                <h4 class="loremipsumis-2 ui heading size-lg">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                </h4>
+              </summary>
+              <div class="columnloremipsu">
+                <p class="newsblog-1 ui text size-lg">Lorem Ipsum is simply dummy text.</p>
+                <p class="description-6 ui text size-lg">
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                  industry&#39;s stand dummyLorem Ipsum is simply dummy text of the printing and typesetting industry.
+                  Lorem Ipsum has been the industry&#39;s standard dummy
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <div class="ournewsletter">
+          <div class="limitedtime-1 container-xs">
+            <div class="details-5">
+              <h5 class="newsblog-1 ui heading size-xl">Our Newsletter</h5>
+              <h1 class="offer ui heading size-5xl">
+                Subscribe to Our <br />Newsletter for Updates on<br />Our Latest Collection
+              </h1>
+              <p class="price ui text size-lg">Get 20% off on your first order just by subscribing to our newsletter</p>
+              <label class="businessemail ui input size-md fill round">
+                <input name="businessemail" placeholder="Your business email" type="email" />
+              </label>
+            </div>
+            <img src="public/images/img_two_fashion_lau.png" alt="twofashionlau" class="twofashionlau" />
+          </div>
+        </div>
+        <div>
+          <div class="footer-1">
+            <div class="row container-xs">
+              <div class="column">
+                <div class="rowfooterlogo">
+                  <div class="columnfooterlog">
+                    <img src="public/images/img_footer_logo.svg" alt="footerlogo" class="footerlogo_one" />
+                    <div class="columnthefastes">
+                      <p class="thefastestand ui text size-md">
+                        The fastest and simple way to generate growing business solutions with our products
+                      </p>
+                      <div class="email">
+                        <img src="public/images/img_lock_white_a700.svg" alt="lock" class="search_one" />
+                        <p class="offer-3 ui text size-md">FashionFlow@Gmail.com</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="rowproduct">
+                    <div class="columnproduct">
+                      <h6 class="followus-2 ui heading size-md">Product</h6>
+                      <ul class="columnlandingpa">
+                        <li>
+                          <a href="#">
+                            <p class="ui text size-md">Landing pages</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <p class="ui text size-md">Shop</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <p class="ui text size-md">Women</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <p class="ui text size-md">Men</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <p class="ui text size-md">Accessories</p>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="columncompany">
+                      <h6 class="followus-2 ui heading size-md">Company</h6>
+                      <ul class="columnlandingpa">
+                        <li>
+                          <a href="#">
+                            <p class="ui text size-md">About</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <p class="ui text size-md">Privacy Policy</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" class="termandconditio-link">
+                            <p class="ui text size-md">Terms & Conditions</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <p class="ui text size-md">Partners</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <p class="ui text size-md">Contact</p>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="title">
+                      <h6 class="followus-2 ui heading size-md">Resources</h6>
+                      <ul class="columnblog_one">
+                        <li>
+                          <a href="#">
+                            <p class="ui text size-md">Blog</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <p class="ui text size-md">Tools</p>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <p class="ui text size-md">Support</p>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="row2020growital">
+                  <p class="class-2020growitall ui text size-md">© 2020 All Right Reserved</p>
+                  <div class="rowbxbxl_one">
+                    <img src="public/images/img_bx_bxl_instagram_alt.svg" alt="bxbxl" class="search_one" />
+                    <img src="public/images/img_akar_icons_twitter_fill.svg" alt="akaricons" class="search_one" />
+                    <button class="akaricons_three ui button size-md square">
+                      <img src="public/images/img_akar_icons_linkedin_fill_white_a700.svg" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
